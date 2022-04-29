@@ -20,11 +20,11 @@ public class CreateStudentDemo {
 
         try {
             System.out.println("Creating new student object...");
-            Student s = new Student("Erdal", "Guzel", "erdal@abc.com");
+            Student s = new Student("Ryan", "Horst", "ryan@abc.com");
 
             session.beginTransaction();
 
-            session.save(s);
+            session.persist(s);
 
             session.getTransaction().commit();
 
