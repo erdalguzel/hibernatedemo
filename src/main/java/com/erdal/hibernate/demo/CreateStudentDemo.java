@@ -7,30 +7,30 @@ import org.hibernate.cfg.Configuration;
 
 public class CreateStudentDemo {
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 
-        // Place hibernate.cfg.xml file under resources/ folder
-        // Default config filename is hibernate.cfg.xml. If a different name is given, that filename must be specified explicitly.
+    // Place hibernate.cfg.xml file under resources/ folder
+    // Default config filename is hibernate.cfg.xml. If a different name is given, that filename must be specified explicitly.
 
-        SessionFactory factory = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Student.class)
-                .buildSessionFactory();
-        Session session = factory.getCurrentSession();
+    SessionFactory factory = new Configuration()
+        .configure("hibernate.cfg.xml")
+        .addAnnotatedClass(Student.class)
+        .buildSessionFactory();
+    Session session = factory.getCurrentSession();
 
-        try {
-            System.out.println("Creating new student object...");
-            Student s = new Student("Ryan", "Horst", "ryan@abc.com");
+    try {
+      System.out.println("Creating new student object...");
+      Student s = new Student("Ryan", "Horst", "ryan@abc.com");
 
-            session.beginTransaction();
+      session.beginTransaction();
 
-            session.persist(s);
+      session.persist(s);
 
-            session.getTransaction().commit();
+      session.getTransaction().commit();
 
-            System.out.println("Done...");
-        } finally {
-            factory.close();
-        }
+      System.out.println("Done...");
+    } finally {
+      factory.close();
     }
+  }
 }
