@@ -1,14 +1,12 @@
 package com.erdal.hibernate.demo;
 
-import com.erdal.hibernate.demo.entity.Student;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
+
+import com.erdal.hibernate.demo.entity.Student;
 
 public class CreateStudentDemo {
 
@@ -21,6 +19,7 @@ public class CreateStudentDemo {
 		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Student.class)
 				.buildSessionFactory();
 		Session session = factory.getCurrentSession();
+		Logger log = Logger.getLogger(Student.class);
 
 		try {
 			/*
@@ -38,20 +37,20 @@ public class CreateStudentDemo {
 
 			// NEW CODE
 
-			/*
-			 * session = factory.getCurrentSession(); session.beginTransaction();
-			 * 
-			 * Student student = session.get(Student.class, 1);
-			 * 
-			 * System.out.println("student name: " + student.getFirstName() + " " +
-			 * student.getLastName());
-			 * 
-			 * session.getTransaction().commit();
-			 * 
-			 * System.out.println("Done...");
-			 */
+			session = factory.getCurrentSession();
+
+			session.beginTransaction();
+
+			Student student = session.get(Student.class, 1);
+
+			log.log(Level.INFO, "student name: " + student.getFirstName() + " " + student.getLastName());
+
+			session.getTransaction().commit();
+
+			log.log(Level.INFO, "Done...");
+
 		} finally {
-			// session.close();
+			session.close();
 			factory.close();
 		}
 	}
